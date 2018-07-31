@@ -52,7 +52,10 @@ function HDWalletProvider(mnemonic, provider_url, address_index=0, num_addresses
     const ws = new Web3.providers.WebsocketProvider(provider_url);
     const sub = new ProviderSubprovider(ws);
 
-    this.on = ws.on;
+    this.notificationCallbacks = [];
+    this.on = function () {
+        this.engine.on.apply(this.engine, arguments);
+    }
 
     this.engine.addProvider(sub);
   }
