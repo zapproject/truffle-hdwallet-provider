@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/trufflesuite/truffle-hdwallet-provider.git"
+    "url": "git+https://github.com/zapproject/truffle-hdwallet-provider.git"
   },
   "keywords": [
     "etheruem",
@@ -20,9 +20,9 @@
   "author": "Tim Coulter <tim.coulter@consensys.net>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/trufflesuite/truffle-hdwallet-provider/issues"
+    "url": "https://github.com/zapproject/truffle-hdwallet-provider/issues"
   },
-  "homepage": "https://github.com/trufflesuite/truffle-hdwallet-provider#readme",
+  "homepage": "https://github.com/zapproject/truffle-hdwallet-provider#readme",
   "dependencies": {
     "bip39": "^2.2.0",
     "ethereumjs-wallet": "0.6.0",
