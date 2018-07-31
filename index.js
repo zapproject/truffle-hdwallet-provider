@@ -54,7 +54,7 @@ function HDWalletProvider(mnemonic, provider_url, address_index=0, num_addresses
       catch (err) {
         callback(err);        
       }
-    }
+    };
 
     const ws = new Web3.providers.WebsocketProvider(provider_url);
     const sub = new ProviderSubprovider(ws);
@@ -72,7 +72,7 @@ HDWalletProvider.prototype.sendAsync = function() {
 };
 
 HDWalletProvider.prototype.on = function() {
-  this.engine.on.apply(this.engine, arguments);
+  this.engine.on(... arguments);
 };
 
 HDWalletProvider.prototype.reconnect = function() {
