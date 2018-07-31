@@ -48,6 +48,7 @@ function HDWalletProvider(mnemonic, provider_url, address_index=0, num_addresses
   }
   else if(provider_url.startsWith('ws')) {
     Web3.providers.WebsocketProvider.prototype.sendAsync = Web3.providers.WebsocketProvider.prototype.send;
+    Web3.providers.WebsocketProvider.prototype.on = true;
     this.engine.addProvider(new ProviderSubprovider(new Web3.providers.WebsocketProvider(provider_url)));
   }
   else {
