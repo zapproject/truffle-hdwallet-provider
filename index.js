@@ -71,7 +71,7 @@ HDWalletProvider.prototype.sendAsync = function() {
   this.engine.sendAsync.apply(this.engine, arguments);
 };
 
-HDWalletProvider.prototype.on = function() {
+HDWalletProvider.prototype.on = function(... arguments) {
   this.engine.on(... arguments);
 };
 
