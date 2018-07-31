@@ -52,11 +52,6 @@ function HDWalletProvider(mnemonic, provider_url, address_index=0, num_addresses
     const ws = new Web3.providers.WebsocketProvider(provider_url);
     const sub = new ProviderSubprovider(ws);
 
-    this.notificationCallbacks = [];
-    this.on = function () {
-        this.engine.on.apply(this.engine, arguments);
-    }
-
     this.engine.addProvider(sub);
   }
   else {
@@ -68,6 +63,11 @@ function HDWalletProvider(mnemonic, provider_url, address_index=0, num_addresses
 HDWalletProvider.prototype.sendAsync = function() {
   this.engine.sendAsync.apply(this.engine, arguments);
 };
+
+HDWalletProvider.prototype.on = function() {
+  this.engine.on.apply(this.engine, arguments);
+};
+
 
 HDWalletProvider.prototype.send = function() {
   return this.engine.send.apply(this.engine, arguments);
