@@ -52,6 +52,7 @@ function HDWalletProvider(mnemonic, provider_url, address_index=0, num_addresses
     const ws = new Web3.providers.WebsocketProvider(provider_url);
     const sub = new ProviderSubprovider(ws);
 
+    this.webSocket = ws;
     this.engine.addProvider(sub);
   }
   else {
@@ -65,15 +66,27 @@ HDWalletProvider.prototype.sendAsync = function() {
 };
 
 HDWalletProvider.prototype.on = function(... arguments) {
-  this.engine.on(... arguments);
+  if (this.webSocket) {
+    this.webSocket.on.apply(this.webSocket, arguments);
+  }
+  else {
+    throw new Error('Wrapped provider doesnt support sockets');
+  }
 };
 
 HDWalletProvider.prototype.reconnect = function() {
-  this.engine.reconnect.apply(this.engine, arguments);
+  if (this.webSocket) {
+    this.webSocket.reconnect.apply(this.webSocket, arguments);
+  }
+  else {
+    throw new Error('Wrapped provider doesnt support sockets');
+  }
 };
 
 HDWalletProvider.prototype.once = function() {
-  this.engine.once.apply(this.engine, arguments);
+  if (this.webSocket) {
+    this.webSocket.once.apply(this.webSocket, arguments);
+  }
 };
 
 HDWalletProvider.prototype.send = function() {
