@@ -44,7 +44,11 @@ function HDWalletProvider(mnemonic, provider_url, address_index=0, num_addresses
   this.engine.addProvider(new FiltersSubprovider());
 
   if (provider_url.startsWith('http')) {
-    this.engine.addProvider(new ProviderSubprovider(new Web3.providers.HttpProvider(provider_url)));
+    Web3.providers.HttpProvider.prototype.sendAsync = Web3.providers.HttpProvider.prototype.send;
+    const http = new Web3.providers.HttpProvider(provider_url);
+    const sub = new ProviderSubprovider(http);
+
+    this.engine.addProvider(sub);
   }
   else if(provider_url.startsWith('ws')) {
     Web3.providers.WebsocketProvider.prototype.sendAsync = Web3.providers.WebsocketProvider.prototype.send;
