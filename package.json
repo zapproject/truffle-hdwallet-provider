@@ -26,7 +26,7 @@
   "dependencies": {
     "bip39": "^2.2.0",
     "ethereumjs-wallet": "0.6.0",
-    "web3": "^1.0.0-beta.35",
+    "web3": "^1.0.0-beta.33",
     "web3-provider-engine": "^14.0.5"
   },
   "devDependencies": {
