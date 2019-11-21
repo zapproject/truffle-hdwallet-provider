@@ -6,6 +6,7 @@ var HookedSubprovider = require('web3-provider-engine/subproviders/hooked-wallet
 var ProviderSubprovider = require("web3-provider-engine/subproviders/provider.js");
 var Web3 = require("web3");
 var Transaction = require('ethereumjs-tx');
+const ethUtil = require('ethereumjs-util');
 
 function HDWalletProvider(mnemonic, provider_url, address_index=0, num_addresses=1) {
   this.mnemonic = mnemonic;
@@ -39,6 +40,21 @@ function HDWalletProvider(mnemonic, provider_url, address_index=0, num_addresses
       tx.sign(pkey);
       var rawTx = '0x' + tx.serialize().toString('hex');
       cb(null, rawTx);
+    },
+    signPersonalMessage(message, cb) {
+      const dataIfExists = message.data;
+      if (!dataIfExists) {
+        cb('No data to sign');
+      }
+      if (!tmp_wallets[message.from]) {
+        cb('Account not found');
+      }
+      let pkey = tmp_wallets[message.from].getPrivateKey();
+      const dataBuff = ethUtil.toBuffer(dataIfExists);
+      const msgHashBuff = ethUtil.hashPersonalMessage(dataBuff);
+      const sig = ethUtil.ecsign(msgHashBuff, pkey);
+      const rpcSig = ethUtil.toRpcSig(sig.v, sig.r, sig.s);
+      cb(null, rpcSig);
     }
   }));
   this.engine.addProvider(new FiltersSubprovider());
